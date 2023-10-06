@@ -15,8 +15,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Register Services
+//Data Access Services
 builder.Services.AddTransient<ISymbolsDataAccessService, SymbolsDataAccessService>();
+builder.Services.AddTransient<ITradeDataAccessService, TradeDataAccessService>();
 builder.Services.AddTransient<IMinutelyAverageDataAccessService, MinutelyAverageDataAccessService>();
 builder.Services.AddTransient<IDailyAverageDataAccessService, DailyAverageDataAccessService>();
 builder.Services.AddTransient<IWeeklyAverageDataAccessService, WeeklyAverageDataAccessService>();
