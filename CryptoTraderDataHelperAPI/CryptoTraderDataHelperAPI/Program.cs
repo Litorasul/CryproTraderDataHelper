@@ -2,7 +2,6 @@ using CryptoTraderDataHelperAPI.Data;
 using CryptoTraderDataHelperAPI.Models;
 using CryptoTraderDataHelperAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +17,9 @@ builder.Services.AddSwaggerGen();
 
 //Register Services
 builder.Services.AddTransient<ISymbolsDataAccessService, SymbolsDataAccessService>();
+builder.Services.AddTransient<IMinutelyAverageDataAccessService, MinutelyAverageDataAccessService>();
+builder.Services.AddTransient<IDailyAverageDataAccessService, DailyAverageDataAccessService>();
+builder.Services.AddTransient<IWeeklyAverageDataAccessService, WeeklyAverageDataAccessService>();
 
 var app = builder.Build();
 

@@ -32,4 +32,12 @@ public class SymbolsDataAccessService : ISymbolsDataAccessService
 
         return result;
     }
+
+    public SymbolsExportDto GetSymbolById(int id)
+    {
+        var symbol = _context.Symbols.FirstOrDefault(x => x.Id == id);
+        if (symbol == null) { throw new NullReferenceException($"Symbol with ID: {id} does not exist in the Database!"); };
+
+        return new SymbolsExportDto { Id = symbol.Id, Name = symbol.Name };
+    }
 }
