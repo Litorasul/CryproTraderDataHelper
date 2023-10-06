@@ -28,7 +28,6 @@ public class BinanceWebsocketBackgroundService : BackgroundService
             var tradeDataAccessService = scope.ServiceProvider.GetRequiredService<ITradeDataAccessService>();
             var symbolDataAccessService = scope.ServiceProvider.GetRequiredService<ISymbolsDataAccessService>();
             var exitEvent = new ManualResetEvent(false);
-            var symbolDictionary = CreateNewSymbolDictionary(symbolDataAccessService);
 
                 using (var communicator = new BinanceWebsocketCommunicator(_url))
             {
@@ -48,7 +47,7 @@ public class BinanceWebsocketBackgroundService : BackgroundService
                             {
                                 Price = incomingTrade.Price,
                                 Time = incomingTrade.TradeTime,
-                                SymbolId = symbolDictionary[incomingTrade.Symbol.ToLower()].Id
+                                SymbolId = Common.SYMBOL_IDS[incomingTrade.Symbol.ToLower()]
                             };
                             await tradeDataAccessService.AddNewTradeAsync(trade);
                         }
@@ -72,14 +71,4 @@ public class BinanceWebsocketBackgroundService : BackgroundService
         }
     }
 
-    private Dictionary<string, SymbolsExportDto> CreateNewSymbolDictionary(ISymbolsDataAccessService symbolDataAccessService)
-    {
-        var result = new Dictionary<string, SymbolsExportDto>();
-        var symbols = symbolDataAccessService.GetAllSymbols();
-        foreach ( var symbol in symbols)
-        {
-            result[symbol.Name] = symbol;
-        };
-        return result;
-    }
 }
