@@ -12,7 +12,8 @@ public class MainController : ControllerBase
       {
           Id = 1,
           Name = "Test",
-          Time = DateTime.Now
+          Time = DateTime.Now,
+          List = new { one= 1, Two =  2, Three =  3}
       };
 
         return Ok(result);
