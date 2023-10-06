@@ -10,7 +10,7 @@ namespace CryptoTraderDataHelperAPI.Models
         [Required(ErrorMessage = "Time is required.")]
         public DateTime Time { get; set; }
         [Required(ErrorMessage = "Price is required.")]
-        public double Price { get; set; }
+        public double Price { get; set; } // Should be decimal
         [ForeignKey("Symbol")]
         public int SymbolId { get; set; }
         public Symbol Symbol { get; set; }

@@ -6,7 +6,7 @@ namespace CryptoTraderDataHelperAPI.Services.DataAccess
     public interface ITradeDataAccessService
     {
         Task<int> AddNewTradeAsync(TradeImportDto importDto);
-        List<TradeExportDto> GetAllTradesForATimePeriod(DateTime from, DateTime to);
+        List<TradeExportDto> GetAllTradesForATimePeriodForASymbol(DateTime from, DateTime to, int symbolId);
         Task UpdateDailyAverageForATradeAsync(int tradeId, int averageId);
         Task UpdateMinutelyAverageForATradeAsync(int tradeId, int averageId);
         Task UpdateWeeklyAverageForATradeAsync(int tradeId, int averageId);

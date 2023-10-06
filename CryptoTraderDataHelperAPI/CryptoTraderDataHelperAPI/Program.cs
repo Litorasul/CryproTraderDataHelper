@@ -5,6 +5,7 @@ using Binance.Client.Websocket.Websockets;
 using CryptoTraderDataHelperAPI.Data;
 using CryptoTraderDataHelperAPI.Models;
 using CryptoTraderDataHelperAPI.Services.BackgroundServices;
+using CryptoTraderDataHelperAPI.Services.BusinessLogic;
 using CryptoTraderDataHelperAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,9 @@ builder.Services.AddTransient<ITradeDataAccessService, TradeDataAccessService>()
 builder.Services.AddTransient<IMinutelyAverageDataAccessService, MinutelyAverageDataAccessService>();
 builder.Services.AddTransient<IDailyAverageDataAccessService, DailyAverageDataAccessService>();
 builder.Services.AddTransient<IWeeklyAverageDataAccessService, WeeklyAverageDataAccessService>();
+
+//Business Logic Services
+builder.Services.AddTransient<ICalculateAveragesBusinessLogicService, CalculateAveragesBusinessLogicService>();
 
 //Background Services
 builder.Services.AddHostedService<BinanceWebsocketBackgroundService>();

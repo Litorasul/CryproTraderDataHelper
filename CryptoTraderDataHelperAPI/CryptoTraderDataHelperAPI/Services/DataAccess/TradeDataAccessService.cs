@@ -15,9 +15,9 @@ public class TradeDataAccessService : ITradeDataAccessService
         _symbolsDataAccessService = symbolsDataAccessService;
     }
 
-    public List<TradeExportDto> GetAllTradesForATimePeriod(DateTime from, DateTime to)
+    public List<TradeExportDto> GetAllTradesForATimePeriodForASymbol(DateTime from, DateTime to, int symbolId)
     {
-        var trades = _context.Trades.Where(t => t.Time >= from && t.Time <= to).ToList();
+        var trades = _context.Trades.Where(t => t.Time >= from && t.Time <= to && t.SymbolId == symbolId).ToList();
         if (trades == null) { throw new NullReferenceException("No Trades for that period in the Database!"); };
 
         var result = new List<TradeExportDto>();
