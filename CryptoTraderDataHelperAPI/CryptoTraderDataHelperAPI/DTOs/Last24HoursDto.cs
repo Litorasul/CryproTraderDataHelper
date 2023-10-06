@@ -1,8 +1,7 @@
-﻿namespace CryptoTraderDataHelperAPI.DTOs
+﻿namespace CryptoTraderDataHelperAPI.DTOs;
+
+public class Last24HoursDto
 {
-    public class Last24HoursDto
-    {
-        public double Price { get; set; }
-        public string Symbol { get; set; }
-    }
+    public double Price { get; set; }
+    public string Symbol { get; set; }
 }

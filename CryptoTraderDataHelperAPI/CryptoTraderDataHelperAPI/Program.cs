@@ -33,6 +33,9 @@ builder.Services.AddTransient<ICalculateAveragesBusinessLogicService, CalculateA
 
 //Background Services
 builder.Services.AddHostedService<BinanceWebsocketBackgroundService>();
+builder.Services.AddHostedService<MinutelyAverageBackgroundService>();
+builder.Services.AddHostedService<DailyAverageBackgroundService>();
+builder.Services.AddHostedService<WeeklyAverageBackgroundService>();
 
 var app = builder.Build();
 
