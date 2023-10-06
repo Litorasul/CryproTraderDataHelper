@@ -1,5 +1,6 @@
 using CryptoTraderDataHelperAPI.Data;
 using CryptoTraderDataHelperAPI.Models;
+using CryptoTraderDataHelperAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -14,6 +15,9 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Register Services
+builder.Services.AddTransient<ISymbolsDataAccessService, SymbolsDataAccessService>();
 
 var app = builder.Build();
 
