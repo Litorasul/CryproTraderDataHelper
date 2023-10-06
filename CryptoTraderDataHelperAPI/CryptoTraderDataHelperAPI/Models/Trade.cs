@@ -6,7 +6,7 @@ namespace CryptoTraderDataHelperAPI.Models
     public class Trade
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } // Should be long 
         [Required(ErrorMessage = "Time is required.")]
         public DateTime Time { get; set; }
         [Required(ErrorMessage = "Price is required.")]
