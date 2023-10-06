@@ -1,4 +1,5 @@
-﻿using CryptoTraderDataHelperAPI.DTOs.ExportDTOs;
+﻿using CryptoTraderDataHelperAPI.DTOs;
+using CryptoTraderDataHelperAPI.DTOs.ExportDTOs;
 using CryptoTraderDataHelperAPI.DTOs.ImportDTOs;
 using CryptoTraderDataHelperAPI.Services.DataAccess;
 using System.Globalization;
@@ -7,17 +8,32 @@ namespace CryptoTraderDataHelperAPI.Services.BusinessLogic;
 
 public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessLogicService
 {
-    private readonly IMinutelyAverageDataAccessService _minutelyAverageDataAccessService;
-    private readonly IDailyAverageDataAccessService _dailyAverageDataAccessService;
-    private readonly IWeeklyAverageDataAccessService _weeklyAverageDataAccessService;
     private readonly ITradeDataAccessService _tradeDataAccessService;
 
-    public CalculateAveragesBusinessLogicService(IMinutelyAverageDataAccessService minutelyAverageDataAccessService, IDailyAverageDataAccessService dailyAverageDataAccessService, IWeeklyAverageDataAccessService weeklyAverageDataAccessService, ITradeDataAccessService tradeDataAccessService)
+    public CalculateAveragesBusinessLogicService(ITradeDataAccessService tradeDataAccessService)
     {
-        _minutelyAverageDataAccessService = minutelyAverageDataAccessService;
-        _dailyAverageDataAccessService = dailyAverageDataAccessService;
-        _weeklyAverageDataAccessService = weeklyAverageDataAccessService;
         _tradeDataAccessService = tradeDataAccessService;
+    }
+
+    public Last24HoursDto CalculateLast24HoursAverage(int symbolId)
+    {
+        var from  = DateTime.Now.Subtract(TimeSpan.FromDays(1));
+        var to = DateTime.Now;
+        var trades = new List<TradeExportDto>();
+        try
+        {
+            trades = _tradeDataAccessService.GetAllTradesForATimePeriodForASymbol(from, to, symbolId);
+        }
+        catch (NullReferenceException)
+        {
+            return null;
+        }
+        var average = new Last24HoursDto
+        {
+            Price = AveragePrice(trades),
+            Symbol = trades[0].Symbol.Name
+        };
+        return average;
     }
 
     public MinutelyAverageImportDto CalculateMinutelyAverageForSymbol(int symbolId)
