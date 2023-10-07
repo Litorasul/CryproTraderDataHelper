@@ -7,5 +7,6 @@ namespace CryptoTraderDataHelperAPI.Services.DataAccess
     {
         Task<int> AddNewDailyAverageAsync(DailyAveragImportDto importDto);
         List<DailyAverageExportDto> GetAllDailyAveragesForATimePeriod(DateOnly from, DateOnly to);
+        List<DailyAverageExportDto> GetAllDailyAveragesForASymbolForATimePeriod(DateOnly from, DateOnly to, int symbolId);
     }
 }

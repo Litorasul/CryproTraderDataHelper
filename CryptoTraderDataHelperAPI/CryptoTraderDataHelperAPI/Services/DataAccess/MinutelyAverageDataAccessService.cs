@@ -38,6 +38,28 @@ public class MinutelyAverageDataAccessService : IMinutelyAverageDataAccessServic
         return result;
     }
 
+    public List<MinutelyAverageExportDto> GetAllMinutelyAveragesForASymbolForATimePeriod(DateTime from, DateTime to, int symboId)
+    {
+        var averages = _context.MinutelyAverages.Where(a => a.Time >= from && a.Time <= to && a.SymbolId == symboId).ToList();
+        if (averages == null) { throw new NullReferenceException("No Minutely averages for that period in the Database!"); };
+
+        var result = new List<MinutelyAverageExportDto>();
+        foreach (var average in averages)
+        {
+            var dto = new MinutelyAverageExportDto
+            {
+                Id = average.Id,
+                Time = average.Time,
+                Price = average.Price,
+                SymbolId = average.SymbolId
+            };
+            dto.Symbol = _symbolsDataAccessService.GetSymbolById(average.SymbolId);
+            result.Add(dto);
+        }
+
+        return result;
+    }
+
     public async Task<int> AddNewMinutelyAverageAsync(MinutelyAverageImportDto importDto)
     {
         var average = new MinutelyAverage

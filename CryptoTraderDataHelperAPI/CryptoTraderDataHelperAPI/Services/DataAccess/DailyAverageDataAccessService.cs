@@ -36,6 +36,26 @@ public class DailyAverageDataAccessService : IDailyAverageDataAccessService
         }
         return result;
     }
+    public List<DailyAverageExportDto> GetAllDailyAveragesForASymbolForATimePeriod(DateOnly from, DateOnly to, int symbolId)
+    {
+        var averages = _context.DailyAverages.Where(a => a.Time >= from && a.Time <= to && a.SymbolId == symbolId).ToList();
+        if (averages == null) { throw new NullReferenceException("No Daily averages for that period in the Database!"); };
+
+        var result = new List<DailyAverageExportDto>();
+        foreach (var average in averages)
+        {
+            var dto = new DailyAverageExportDto
+            {
+                Id = average.Id,
+                Time = average.Time,
+                Price = average.Price,
+                SymbolId = average.SymbolId
+            };
+            dto.Symbol = _symbolsDataAccessService.GetSymbolById(average.SymbolId);
+            result.Add(dto);
+        }
+        return result;
+    }
 
     public async Task<int> AddNewDailyAverageAsync(DailyAveragImportDto importDto)
     {

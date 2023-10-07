@@ -100,8 +100,7 @@ public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessL
         var average = new WeeklyAverageImportDto
         {
             SymbolId = symbolId,
-            WeekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(from, CalendarWeekRule.FirstDay, DayOfWeek.Monday),
-            Year = from.Year,
+            Time = DateOnly.FromDateTime(from),
             Price = AveragePrice(trades)
         };
         return average;

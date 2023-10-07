@@ -7,5 +7,6 @@ namespace CryptoTraderDataHelperAPI.Services.DataAccess
     {
         Task<int> AddNewMinutelyAverageAsync(MinutelyAverageImportDto importDto);
         List<MinutelyAverageExportDto> GetAllMinutelyAveragesForATimePeriod(DateTime from, DateTime to);
+        List<MinutelyAverageExportDto> GetAllMinutelyAveragesForASymbolForATimePeriod(DateTime from, DateTime to, int symboId);
     }
 }
