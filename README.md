@@ -15,8 +15,10 @@ Before running this application, ensure you have the following prerequisites ins
 
 ## Endpoints
 ### 1. Get 24-Hour Average Price
-** Endpoint: GET /api/{symbol}/24hAvgPrice
-Description: Returns the average price for the last 24 hours of data in the database or the oldest available price if 24 hours of data is not available.
+**Endpoint:** 
+GET /api/{symbol}/24hAvgPrice
+
+**Description:** Returns the average price for the last 24 hours of data in the database or the oldest available price if 24 hours of data is not available.
 Parameters:
 
 - {symbol} - The symbol for which the average price is being calculated.
@@ -45,9 +47,11 @@ Response (XML):
 ```
 
 ### 2. Calculate Simple Moving Average (SMA)
-** Endpoint: GET /api/{symbol}/SimpleMovingAverage
-Description: Returns the current Simple Moving Average (SMA) of the symbol's price over a specified time period.
-Parameters:
+**Endpoint:**
+GET /api/{symbol}/SimpleMovingAverage
+
+**Description:** Returns the current Simple Moving Average (SMA) of the symbol's price over a specified time period.
+**Parameters:**
 
 {symbol} - The symbol for which the SMA is being calculated.
 n - The number of data points.
