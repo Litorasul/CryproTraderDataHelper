@@ -3,8 +3,8 @@
 ## Prerequisites
 Before running this application, ensure you have the following prerequisites installed:
 
-.NET SDK 8.0
-SQLite (for database storage)
+- .NET SDK 8.0
+- SQLite (for database storage)
 
 
 ## Installation
@@ -54,8 +54,11 @@ n - The number of data points.
 p - The time period represented by each data point (acceptable values: 1w, 1d, 30m, 5m, 1m).
 s - (Optional) The datetime from which to start the SMA calculation (a date).
 Example Requests:
+
 > GET /api/BTCUSDT/SimpleMovingAverage?n=10&p=1d&s=2021-12-15
+> 
 > GET /api/ADAUSDT/SimpleMovingAverage?n=100&p=1w
+> 
 > GET /api/ETHUSDT/SimpleMovingAverage?n=200&p=5m
 
 Response (JSON):
