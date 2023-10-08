@@ -2,10 +2,8 @@
 using Binance.Client.Websocket.Client;
 using Binance.Client.Websocket.Subscriptions;
 using Binance.Client.Websocket.Websockets;
-using CryptoTraderDataHelperAPI.DTOs.ExportDTOs;
 using CryptoTraderDataHelperAPI.DTOs.ImportDTOs;
 using CryptoTraderDataHelperAPI.Services.DataAccess;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 
 namespace CryptoTraderDataHelperAPI.Services.BackgroundServices;
