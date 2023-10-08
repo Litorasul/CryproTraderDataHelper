@@ -25,11 +25,11 @@ public class BinanceWebsocketBackgroundService : BackgroundService
     {
         using (IServiceScope scope = _serviceProvider.CreateScope())
         {
-            var tradeDataAccessService = scope.ServiceProvider.GetRequiredService<ITradeDataAccessService>();
+
             var symbolDataAccessService = scope.ServiceProvider.GetRequiredService<ISymbolsDataAccessService>();
             var exitEvent = new ManualResetEvent(false);
 
-                using (var communicator = new BinanceWebsocketCommunicator(_url))
+            using (var communicator = new BinanceWebsocketCommunicator(_url))
             {
                 using (var client = new BinanceWebsocketClient(communicator))
                 {
@@ -39,18 +39,23 @@ public class BinanceWebsocketBackgroundService : BackgroundService
                     //.ObserveOn(TaskPoolScheduler.Default)
                     .Subscribe(async response =>
                     {
-                        var incomingTrade = response.Data;
-                        if (incomingTrade != null)
+                        using (IServiceScope scope = _serviceProvider.CreateScope())
                         {
-                            //Save trade  in DB
-                            var trade = new TradeImportDto
+                            var tradeDataAccessService = scope.ServiceProvider.GetRequiredService<ITradeDataAccessService>();
+                            var incomingTrade = response.Data;
+                            if (incomingTrade != null)
                             {
-                                Price = incomingTrade.Price,
-                                Time = incomingTrade.TradeTime,
-                                SymbolId = Common.SYMBOL_IDS[incomingTrade.Symbol.ToLower()]
-                            };
-                            await tradeDataAccessService.AddNewTradeAsync(trade);
+                                //Save trade  in DB
+                                var trade = new TradeImportDto
+                                {
+                                    Price = incomingTrade.Price,
+                                    Time = incomingTrade.TradeTime,
+                                    SymbolId = Common.SYMBOL_IDS[incomingTrade.Symbol.ToLower()]
+                                };
+                                await tradeDataAccessService.AddNewTradeAsync(trade);
+                            }
                         }
+
                     });
 
                     var symbols = symbolDataAccessService.GetAllSymbols();

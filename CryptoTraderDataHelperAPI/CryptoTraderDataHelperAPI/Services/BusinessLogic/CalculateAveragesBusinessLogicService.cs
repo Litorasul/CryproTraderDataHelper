@@ -2,7 +2,6 @@
 using CryptoTraderDataHelperAPI.DTOs.ExportDTOs;
 using CryptoTraderDataHelperAPI.DTOs.ImportDTOs;
 using CryptoTraderDataHelperAPI.Services.DataAccess;
-using System.Globalization;
 
 namespace CryptoTraderDataHelperAPI.Services.BusinessLogic;
 
@@ -26,7 +25,7 @@ public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessL
         }
         catch (NullReferenceException)
         {
-            return null;
+            throw;
         }
         var average = new Last24HoursDto
         {
@@ -48,7 +47,7 @@ public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessL
         }
         catch (NullReferenceException)
         {
-            return null;
+            throw;
         }
 
         var average = new MinutelyAverageImportDto
@@ -72,7 +71,7 @@ public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessL
         }
         catch (NullReferenceException)
         {
-            return null;
+            throw;
         }
         var average = new DailyAveragImportDto
         {
@@ -95,7 +94,7 @@ public class CalculateAveragesBusinessLogicService : ICalculateAveragesBusinessL
         }
         catch (NullReferenceException)
         {
-            return null;
+            throw;
         }
         var average = new WeeklyAverageImportDto
         {
